@@ -11,4 +11,4 @@
 `CTRL + hl`  to previous/next tab page
 
 ## show a message to prompt <M-hjlk> to jump
-![](im/prompt.png)
+![](https://github.com/siuoly/vim-terminal-help/blob/master/images/prompt.jpg)
