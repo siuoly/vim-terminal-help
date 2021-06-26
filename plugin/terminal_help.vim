@@ -184,6 +184,8 @@ function! TerminalOpen(...)
 			let opts.term_kill = get(g:, 'terminal_kill', 'term')
 			let opts.exit_cb = function('s:terminal_exit')
 			let bid = term_start(command, opts)
+      " be changed
+      call term_sendkeys( bid, "#alt+hjkl Jump pane\<CR>")
 			setlocal nonumber norelativenumber signcolumn=no
 			let jid = term_getjob(bid)
 			let b:__terminal_jid__ = jid
@@ -438,29 +440,31 @@ endif
 " fast window switching: ALT+SHIFT+HJKL
 "----------------------------------------------------------------------
 if get(g:, 'terminal_default_mapping', 1)
-	noremap <m-H> <c-w>h
-	noremap <m-L> <c-w>l
-	noremap <m-J> <c-w>j
-	noremap <m-K> <c-w>k
-	inoremap <m-H> <esc><c-w>h
-	inoremap <m-L> <esc><c-w>l
-	inoremap <m-J> <esc><c-w>j
-	inoremap <m-K> <esc><c-w>k
 
+  " be changed 移動鍵自訂, 貼上鍵自訂, tab分頁移動鍵自訂
 	if has('terminal') && exists(':terminal') == 2 && has('patch-8.1.1')
 		set termwinkey=<c-_>
-		tnoremap <m-H> <c-_>h
-		tnoremap <m-L> <c-_>l
-		tnoremap <m-J> <c-_>j
-		tnoremap <m-K> <c-_>k
+		tnoremap <m-h> <c-_>h
+		tnoremap <m-l> <c-_>l
+		tnoremap <m-j> <c-_>j
+		tnoremap <m-k> <c-_>k
+
 		tnoremap <m-N> <c-_>p
 		tnoremap <m-q> <c-\><c-n>
-		tnoremap <m--> <c-_>"0
+    tnoremap <m--> <c-_>"0
+
+    " be changed
+    tnoremap <m-p> <c-_>"0
+    tnoremap <F2> <C-_>N<CR>  
+    tnoremap <silent> <C-h> <C-_>:tabp<CR>
+    tnoremap <silent> <C-l> <C-_>:tabn<CR>
+
 	elseif has('nvim')
-		tnoremap <m-H> <c-\><c-n><c-w>h
-		tnoremap <m-L> <c-\><c-n><c-w>l
-		tnoremap <m-J> <c-\><c-n><c-w>j
-		tnoremap <m-K> <c-\><c-n><c-w>k
+		tnoremap <m-h> <c-\><c-n><c-w>h
+		tnoremap <m-l> <c-\><c-n><c-w>l
+		tnoremap <m-j> <c-\><c-n><c-w>j
+		tnoremap <m-k> <c-\><c-n><c-w>k
+
 		tnoremap <m-N> <c-\><c-n><c-w>p
 		tnoremap <m-q> <c-\><c-n>
 		tnoremap <m--> <c-\><c-n>"0pa
